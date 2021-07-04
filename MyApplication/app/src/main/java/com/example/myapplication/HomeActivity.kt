@@ -15,9 +15,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         val button = findViewById<Button>(R.id.button8)
         val button2 = findViewById<Button>(R.id.button9)
-//        val settings: SharedPreferences =
-//           getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE)
-//        settings.edit().clear().commit()
+        //val settings: SharedPreferences =
+          //  getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE)
+        //settings.edit().clear().commit()
         button.setOnClickListener(View.OnClickListener { view ->
             startActivity(Intent(this, MainActivity::class.java))
             finish()

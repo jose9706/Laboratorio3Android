@@ -68,13 +68,14 @@ class MainActivity : AppCompatActivity() {
         var counter : Int = 0
         var sequenceLength : Int = 1
         var userListOfButtons : MutableList<Int> = ArrayList()
+        var addNumber : Boolean = false
         fun resetEverything(restartSequence : Boolean = false) {
             counter = -1
             sequenceDone = false
-            listOfButtons.clear()
             userListOfButtons.clear()
             if(restartSequence) {
                 sequenceLength = 1
+                listOfButtons.clear()
             }
         }
         fun checkProgressAndRestartGame(counter : Int) {
@@ -92,34 +93,43 @@ class MainActivity : AppCompatActivity() {
                         sequenceLength += 1
                         highScoreText.text = stringRecord
                         resetEverything()
+                        addNumber = true
                         buttonInit.performClick()
-                    }
+                     }
                 }
             }
         }
 
         buttonInit.setOnClickListener(View.OnClickListener { view ->
             disableAllButtons()
-            for(i in 1..sequenceLength) {
-                val buttonToPress: Int = Random.nextInt(6)
+            var buttonToPress: Int = 1
+            if(addNumber) {
+                buttonToPress = Random.nextInt(6)
                 listOfButtons.add(buttonToPress)
-                if(buttonToPress == 0) {
-                    displayNumber(buttonToPress, button, 0, i, soundList)
+            } else {
+                for(i in 1..sequenceLength) {
+                    buttonToPress = Random.nextInt(6)
+                    listOfButtons.add(buttonToPress)
                 }
-                if(buttonToPress == 1) {
-                    displayNumber(buttonToPress, button2, 1, i, soundList)
+            }
+            for(i in 1..sequenceLength) {
+                if(listOfButtons[i-1] == 0) {
+                    displayNumber(listOfButtons[i-1], button, 0, i, soundList)
                 }
-                if(buttonToPress == 2) {
-                    displayNumber(buttonToPress, button3, 2, i, soundList)
+                if(listOfButtons[i-1] == 1) {
+                    displayNumber(listOfButtons[i-1], button2, 1, i, soundList)
                 }
-                if(buttonToPress == 3) {
-                    displayNumber(buttonToPress, button4, 3, i, soundList)
+                if(listOfButtons[i-1] == 2) {
+                    displayNumber(listOfButtons[i-1], button3, 2, i, soundList)
                 }
-                if(buttonToPress == 4) {
-                    displayNumber(buttonToPress, button5, 4, i, soundList)
+                if(listOfButtons[i-1] == 3) {
+                    displayNumber(listOfButtons[i-1], button4, 3, i, soundList)
                 }
-                if(buttonToPress == 5) {
-                    displayNumber(buttonToPress, button6, 5, i, soundList)
+                if(listOfButtons[i-1] == 4) {
+                    displayNumber(listOfButtons[i-1], button5, 4, i, soundList)
+                }
+                if(listOfButtons[i-1] == 5) {
+                    displayNumber(listOfButtons[i-1], button6, 5, i, soundList)
                 }
                 Timer().schedule((2000*sequenceLength).toLong()) {
                     enableAllButtons()
